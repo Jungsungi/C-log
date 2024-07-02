@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/views/common/header :: header"/>
+
+<body>
+<div th:replace="/views/common/bodyHeader :: bodyHeader"/>
+    <a th:href="@{/member/add}" th:text="|회원가입|"></a>
+    <a th:href="@{/login}" th:text="|로그인|"></a>
+<div th:replace="/views/common/fotter :: fotter"/>
+</body>
+</html>

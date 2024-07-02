@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/views/common/header :: header"/>
+<style>
+    .book-content{
+        width:100%;
+        height:30px;
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow: ellipsis; //ellipsis 속성 추가
+    }
+</style>
+<body>
+<div th:replace="/views/common/bodyHeader :: bodyHeader"/>
+
+<div class="container" style="width: 80%;">
+    <div>
+        <p class="h1" th:text="|책 리뷰|"></p>
+    </div>
+
+    <div>
+        <span class="row">
+            <div th:each="review : ${reviews}" class="card col-3 mb-3 mt-3 p-3">
+                <img th:src="@{${bookList.get(reviewStat.index).cover}}"  class="card-img-top" alt="..." width="260px;" height="470px;">
+                <div class="card-body">
+                    <h5 class="card-title book-content" th:text="${review.title}">Card title</h5>
+                    <p class="card-text h6" th:text="${review.member.userName}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p class="card-text h6 book-content" th:text="${review.item.name}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a th:href="@{/review/book/{id} (id = ${review.id})}" class="btn btn-primary" th:text="|리뷰 보기|">Go somewhere</a>
+                </div>
+            </div>
+        </span>
+    </div>
+</div>
+
+
+<div th:replace="/views/common/fotter :: fotter"/>
+</body>
+</html>

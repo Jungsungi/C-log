@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<script>
+
+</script>
+<div th:id="main_header" th:fragment="bodyHeader" style="margin-bottom: 100px; background-color: crimson; height: 80px;">
+    <nav class="navbar navbar-expand-lg" style="padding-top: 22px;">
+        <a th:text="|C-log|" th:href="@{/}" class="navbar-brand header_icon"></a>
+        <div class="collapse navbar-collapse nav-container" style="float: right">
+            <ul class="navbar-nav me-auto mb-auto">
+                <li class="nav-item">
+                    <a th:text="|책 정보|"  class="nav-link" style="color: white"></a>
+                </li>
+
+                <li class="nav-item dropdown" id="bookMenu">
+                    <a class="nav-link dropdown-toggle" href="#" th:text="|도서 정보|"></a>
+                    <ul class="dropdown-menu" id="bookNav" style="display: none">
+                        <li><a class="dropdown-item" th:href="@{/item/book/bestSeller}" th:text="|베스트 셀러|"></a></li>
+                        <li><a class="dropdown-item" th:href="@{/item/book}" th:text="|도서 검색|">Another action</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a th:text="|리뷰|" th:href="@{/review/book}" class="nav-link" style="color: white"></a>
+                </li>
+
+                <li class="nav-item">
+                    <a th:if="${session.get('login') != null}" th:text="${session.get('login').userName}" th:href="@{|/member/${session.get('login').id}|}" class="nav-link" style="color: white"></a>
+                    <a th:if="${session.get('login') == null}" th:text="로그인" class="nav-link" th:href="@{/login}" style="color: white"></a>
+                </li>
+
+                <li class="nav-item">
+                    <a th:if="${session.get('login') != null}" th:text="|로그아웃|" th:href="@{#}" onclick="javascript : logout();" class="nav-link" style="color: white"></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>

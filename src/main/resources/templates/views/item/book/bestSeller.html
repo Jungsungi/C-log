@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/views/common/header :: header"/>
+<style>
+    .book-content{
+        width:100%;
+        height:30px;
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow: ellipsis; //ellipsis 속성 추가
+    }
+</style>
+<body>
+<div th:replace="/views/common/bodyHeader :: bodyHeader"/>
+
+<div class="container" style="width: 80%;">
+    <div>
+        <p class="h1" th:text="|베스트 셀러|"></p>
+    </div>
+
+    <div>
+        <span class="row p-3">
+            <div th:each="book : ${bestSeller}" class="card col-3 mb-3 mt-3 p-3">
+                <img th:src="@{${book.cover}}" class="card-img-top" alt="..." width="260px;" height="470px;">
+                <div class="card-body">
+                    <h5 class="card-title book-content" th:text="${book.getName}">Card title</h5>
+                    <p class="card-text h6" th:text="${book.author}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p class="card-text h6" th:text="${book.publisher}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p class="card-text h6" th:text="${book.pubDate}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a th:href="@{/item/book/{isbn} (isbn = ${book.isbn})}" class="btn btn-primary" th:text="|상세 정보|">Go somewhere</a>
+                </div>
+            </div>
+        </span>
+    </div>
+</div>
+
+
+<div th:replace="/views/common/fotter :: fotter"/>
+</body>
+</html>

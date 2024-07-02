@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/views/common/header :: header"/>
+<style>
+    .login {
+        width: 300px;
+        height: 460px;
+        box-shadow: 0 0 10px;
+        margin: 0 auto;
+        padding: 30px;
+    }
+
+    .field-error {
+        border-color: #dc3545;
+        color: #dc3545;
+    }
+</style>
+<body>
+<div th:replace="/views/common/bodyHeader :: bodyHeader"/>
+<div class="container" style="width: 80%;">
+    <div class="login">
+        <form th:object="${form}" method="post">
+            <h1 class="h1 mb-3 fw-normal" style="text-align: center" th:text="C-log"></h1>
+            <h5 class="mb-3 fw-normal" style="text-align: center" th:text="|로그인|"></h5>
+            <p class="h6 errorText" th:if="${#fields.hasGlobalErrors()}" th:text="${#fields.globalErrors().get(0)}"></p>
+            <div class="form-floating" style="margin-top: 30px;">
+                <input type="text" class="form-control" th:errorclass="field-error" th:field="*{loginId}" th:placeholder="|아이디를 입력하세요.|">
+                <label th:for="*{loginId}" th:text="|아이디를 입력하세요.|"></label>
+                <p th:if="${#fields.hasErrors('loginId')}" th:errors="*{loginId}" th:errorclass="field-error"></p>
+            </div>
+            <div class="form-floating">
+                <input type="password" class="form-control" th:errorclass="field-error" th:field="*{loginPwd}" th:placeholder="|비밀번호를 입력하세요.|">
+                <label th:for="*{loginPwd}" th:text="|비밀번호를 입력하세요.|">Password</label>
+                <p th:if="${#fields.hasErrors('loginPwd')}" th:errors="*{loginPwd}" th:errorclass="field-error"></p>
+
+            </div>
+            <button class="btn btn-primary w-100" type="submit" style="margin-top: 30px;">로그인</button>
+
+            <div style="margin: 0 auto">
+                <p class="mt-3" style="text-align: center">
+                    <a class="no-efect" th:href="@{/member/find/userid}" th:text="|ID 찾기|"></a> |
+                    <a class="no-efect" th:href="@{/member/find/pwd}" th:text="|비밀번호 찾기|"></a> |
+                    <a class="no-efect" th:href="@{/member/add}" th:text="|회원가입|"></a>
+                </p>
+            </div>
+        </form>
+    </div>
+
+</div>
+<div th:replace="/views/common/fotter :: fotter"/>
+</body>
+</html>

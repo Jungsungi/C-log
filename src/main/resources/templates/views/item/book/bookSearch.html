@@ -14,14 +14,14 @@
         text-align: center;
     }
 
+    .page-item:hover {
+        cursor: pointer;
+    }
+
 </style>
 <script>
     $(document).ready(function () {
        init();
-       //
-       // $("#searchBtn").on("click", function (event) {
-       //
-       // });
     });
 
     function init() {
@@ -35,9 +35,10 @@
         }
     }
 
-    function submit() {
-        $("#searchBtn").preventDefault();
+    function submit(data) {
+        // $("#searchBtn").preventDefault();
         let query = $("#Query").val();
+        $("#Page").val(data);
         if (nullCheck(query)) {
             alert("검색어를 입력해주세요.");
             return;
@@ -73,7 +74,7 @@
             </div>
             <input type="hidden" id="Page" name="Page">
             <div class="search-btn">
-                <button type="button" th:text="|검색|" th:id="searchBtn" class="btn btn-info" th:onclick="submit()"></button>
+                <button type="button" th:text="|검색|" th:id="searchBtn" class="btn btn-info" th:onclick="submit(1)"></button>
             </div>
         </div>
     </form>
@@ -90,6 +91,14 @@
                     <a th:href="@{/item/book/{isbn} (isbn = ${book.isbn})}" class="btn btn-primary" th:text="|상세 정보|">Go somewhere</a>
                 </div>
             </div>
+        </span>
+    </div>
+
+    <div th:if="${page != null}" style="text-align: center">
+        <span>
+            <th:block th:each="num : ${#numbers.sequence(1, page)}">
+                <span class="page-item" th:text="${num}" th:onclick="|submit(${num})|" style="padding: 5px;"></span>
+            </th:block>
         </span>
     </div>
 

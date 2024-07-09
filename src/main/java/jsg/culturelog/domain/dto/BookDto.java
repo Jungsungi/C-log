@@ -15,4 +15,5 @@ public class BookDto {
     private String publisher;
     private String cover;
     private String bookLink;
+    private int count;
 }

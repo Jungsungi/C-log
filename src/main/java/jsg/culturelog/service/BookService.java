@@ -254,7 +254,7 @@ public class BookService {
                 bookDto.setPubDate((String) map.get("pubDate"));
                 bookDto.setCover((String) map.get("cover"));
                 bookDto.setPublisher((String) map.get("publisher"));
-
+                bookDto.setCount((Integer) hashMap.get("totalResults"));
                 bookList.add(bookDto);
             }
 

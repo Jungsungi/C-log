@@ -45,7 +45,7 @@ public class BookController {
     public String bookSearch(Model model, HttpServletRequest request) {
         String queryType = request.getParameter("QueryType");
         String query = null;
-        String page = (request.getParameter("Page") == null) ? "1" : request.getParameter("Page");
+        String page = (request.getParameter("Page") == null || request.getParameter("Page").equals("")) ? "1" : request.getParameter("Page");
         if (request.getParameter("Query") != null) {
             query = request.getParameter("Query").replace(" ", "+");
         }
@@ -54,6 +54,12 @@ public class BookController {
             model.addAttribute("bookList", null);
         } else {
             List<BookDto> bookList = bookService.searchBook(queryType, query, page);
+            int totalCount = bookList.get(0).getCount();
+            int totalPage = (totalCount % 12 == 0) ? totalCount / 12 : (totalCount / 12) + 1;
+            if (totalPage >= 10) {
+                totalPage = 10;
+            }
+            model.addAttribute("page", totalPage);
             model.addAttribute("bookList", bookList);
         }
 

@@ -9,6 +9,14 @@
         overflow:hidden;
         text-overflow: ellipsis; //ellipsis 속성 추가
     }
+
+    a {
+        color: black;
+    }
+
+    .space {
+        margin-top: 10px;
+    }
 </style>
 <body>
 <div th:replace="/views/common/bodyHeader :: bodyHeader"/>
@@ -23,10 +31,16 @@
             <div th:each="review : ${reviews}" class="card col-3 mb-3 mt-3 p-3">
                 <img th:src="@{${bookList.get(reviewStat.index).cover}}"  class="card-img-top" alt="..." width="260px;" height="470px;">
                 <div class="card-body">
-                    <h5 class="card-title book-content" th:text="${review.title}">Card title</h5>
-                    <p class="card-text h6" th:text="${review.member.userName}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <p class="card-text h6 book-content" th:text="${review.item.name}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a th:href="@{/review/book/{id} (id = ${review.id})}" class="btn btn-primary" th:text="|리뷰 보기|">Go somewhere</a>
+                    <div class="space">
+                        <a class="h5 card-title book-content" th:text="${review.title}" th:href="@{/review/book/{id} (id = ${review.id})}"></a>
+                    </div>
+                    <div class="space">
+                        <a class="card-text h6 space" th:text="${review.member.userName}" th:href="@{|/review/book?userName=${review.member.userName}|}"></a>
+                    </div>
+                    <div class="space">
+                        <a class="card-text h6 book-content space" th:text="${review.item.name}" th:href="@{/item/book/{isbn} (isbn = ${bookList.get(reviewStat.index).isbn})}"></a>
+                    </div>
+                    <a th:href="@{/review/book/{id} (id = ${review.id})}" class="btn btn-primary space" th:text="|리뷰 보기|">Go somewhere</a>
                 </div>
             </div>
         </span>

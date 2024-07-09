@@ -28,6 +28,26 @@
            location.href = "/review/book";
        }) ;
 
+       $("#editBtn").on("click", function () {
+           location.href = "/review/book/edit/" + $("#id").val();
+       })
+
+        $("#deleteBtn").on("click", function () {
+            if (!confirm("리뷰를 삭제하시겠습니까?")) {
+               return;
+            }
+
+            let id = $("#id").val();
+
+            $.ajax({
+                url : "/review/book/" + id,
+                type : "delete",
+                success : function (data) {
+                    location.href = "/review/book";
+                }
+            })
+        })
+
     });
     function bookInfo() {
         location.href = "/item/book/" + $("#isbn").val();
@@ -37,6 +57,7 @@
 <div th:replace="/views/common/bodyHeader :: bodyHeader"/>
 <div class="container" style="width: 80%;">
     <input type="hidden" th:id="isbn" th:value="${book.isbn}">
+    <input type="hidden" th:id="id" th:value="${review.id}">
     <div class="row">
         <div class="col-12 h1" th:text="|책 리뷰 작성|"></div>
         <span class="col-4 space">
@@ -83,16 +104,17 @@
             </span>
         <span class="col-8 space">
                 <div style="border: solid 1px black; height: 100%;">
-                    <textarea th:id="content" th:name="content" th:text="${review.content}"></textarea>
+                    <textarea th:id="content" th:name="content" th:text="${review.content}" readonly="readonly"></textarea>
                 </div>
         </span>
     </div>
     <div class="space col-12 btn-group">
         <span>
-            <button type="button" th:text="|목록으로|" th:id="listBtn" class="btn btn-info text-white" style="width: 200px; height: 60px; margin:0 43%"></button>
+            <button type="button" th:text="|목록으로|" th:id="listBtn" class="btn btn-info text-white review-btn"></button>
         </span>
         <span th:if="${session.get('login') != null}" class="mx-2">
-            <button th:if="${review.member.userName eq session.get('login').userName}" type="button" th:text="|리뷰 수정|" class="btn btn-info text-white" style="width: 200px; height: 60px; margin:0 43%"></button>
+            <button th:if="${review.member.userName eq session.get('login').userName}" th:id="editBtn" type="button" th:text="|리뷰 수정|" class="btn btn-info text-white"></button>
+            <button th:if="${review.member.userName eq session.get('login').userName}" th:id="deleteBtn" type="button" th:text="|리뷰 삭제|" class="btn btn-info text-white"></button>
         </span>
     </div>
 

@@ -1,6 +1,7 @@
 package jsg.culturelog.service;
 
 import jsg.culturelog.domain.Review;
+import jsg.culturelog.domain.form.ReviewEditForm;
 import jsg.culturelog.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,5 +26,20 @@ public class ReviewService {
 
     public List<Review> getAllBookReview() {
         return reviewRepository.findAll();
+    }
+
+    @Transactional
+    public void deleteReview(Long id) {
+        reviewRepository.deleteById(id);
+    }
+
+    @Transactional
+    public Review changeBookReview(Long id, ReviewEditForm form) {
+        Review review = reviewRepository.findById(id).orElseThrow();
+        review.changeContent(form.getContent());
+        review.changeGrade(form.getGrade());
+        review.changeTitle(form.getTitle());
+
+        return review;
     }
 }

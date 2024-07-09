@@ -35,4 +35,20 @@ public class Review {
         this.member = member;
         this.item = item;
     }
+
+    /**
+     * 240708 sungijung
+     * review 수정 메소드 추가
+     */
+    public void changeTitle(String title) {
+        this.title = title;
+    }
+
+    public void changeGrade(Double grade) {
+        this.grade = grade;
+    }
+
+    public void changeContent(String content) {
+        this.content = content;
+    }
 }

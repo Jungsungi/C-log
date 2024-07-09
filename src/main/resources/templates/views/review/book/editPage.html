@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/views/common/header :: header"/>
+<style>
+    .book-title {
+        width:100%;
+        height:30px;
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow: ellipsis;
+    }
+    textarea {
+        width: 100%;
+        height: 100%;
+        resize: none;
+        border: none;
+        outline: none;
+        font-size: 18px;
+    }
+    #title {
+        font-size: x-large;
+        text-align: center;
+    }
+    .active{
+        background-color: aquamarine;
+    }
+</style>
+<script>
+$(document).ready(function(){
+   $(".grade").on("click", function () {
+     $(".grade").each(function () {
+         $(this).removeClass("active");
+     });
+     $(this).addClass("active");
+   });
+});
+</script>
+<body>
+<div th:replace="/views/common/bodyHeader :: bodyHeader"/>
+<form th:id="form" method="post" th:action="@{/review/book/edit/{id} (id = ${review.id})}" th:object="${review}">
+    <input type="hidden" th:id="id" th:value="${review.id}">
+    <div class="container" style="width: 80%;">
+        <div class="row">
+            <div class="col-12 h1" th:text="|책 리뷰 작성|"></div>
+            <span class="col-4 space">
+                <div>
+                    <input style="width: 100%; height: 60px;" type="text" th:field="*{title}" th:placeholder="|리뷰 제목을 입력하세요.|">
+                </div>
+                <div class="space" style="padding-left: 25%; border: solid 1px black">
+                    <img th:src="${book.cover}" width="300px" height="400px;">
+                </div>
+                <div class="space">
+                    <div>
+                        <span class="h5" th:text="|평점|"></span> &nbsp; &nbsp; &nbsp; &nbsp;
+                        <span style="margin: 0 auto">
+                            <label th:for="one" class="btn btn-outline-info mx-2 grade" th:text="1"></label>
+                            <input class="d-none" th:id="one" type="radio" name="grade" th:value="1">
+                            <label th:for="two" class="btn btn-outline-info mx-2 grade" th:text="2"></label>
+                            <input class="d-none" th:id="two" type="radio" name="grade" th:value="2">
+                            <label th:for="three" class="btn btn-outline-info mx-2 grade" th:text="3"></label>
+                            <input class="d-none" th:id="three" type="radio" name="grade" th:value="3">
+                            <label th:for="four" class="btn btn-outline-info mx-2 grade" th:text="4"></label>
+                            <input class="d-none" th:id="four" type="radio" name="grade" th:value="4">
+                            <label th:for="five" class="btn btn-outline-info mx-2 grade" th:text="5"></label>
+                            <input class="d-none" th:id="five" type="radio" name="grade" th:value="5">
+                        </span>
+                    </div>
+                    <hr>
+                    <div class="book-title">
+                        <span class="h5" th:text="|제목|"></span> &nbsp; &nbsp; &nbsp; &nbsp;
+                        <span class="h5" th:text="${book.name}"></span>
+                    </div>
+                    <hr>
+                    <div>
+                        <span class="h5" th:text="|작가|"></span> &nbsp; &nbsp; &nbsp; &nbsp;
+                        <span class="h5" th:text="${book.author}"></span>
+                    </div>
+                    <hr>
+                    <div>
+                        <span class="h5" th:text="|출판일|"></span> &nbsp; &nbsp;
+                        <span class="h5" th:text="${book.pubDate}"></span>
+                    </div>
+                    <hr>
+                    <div>
+                        <span class="h5" th:text="|출판사|"></span> &nbsp; &nbsp;
+                        <span class="h5" th:text="${book.publisher}"></span>
+                    </div>
+                    <hr>
+                </div>
+            </span>
+            <span class="col-8 space">
+                <div style="border: solid 1px black; height: 100%;">
+                    <textarea th:field="*{content}" th:placeholder="|리뷰 내용을 입력하세요.|"></textarea>
+                </div>
+            </span>
+        </div>
+        <div class="space col-12">
+            <button type="submit" th:text="|리뷰 저장|" th:id="saveBtn" class="btn btn-info text-white" style="width: 200px; height: 60px; margin:0 43%"></button>
+        </div>
+
+    </div>
+</form>
+<div th:replace="/views/common/fotter :: fotter"/>
+</body>
+</html>

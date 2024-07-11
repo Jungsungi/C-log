@@ -44,7 +44,8 @@ public class MemberController {
         return "redirect:/login";
     }
 
-    @PostMapping("/member/check")
+    //240711 sungiJung 아이디 중복체크 url 변경
+    @PostMapping("/check")
     @ResponseBody
     public int idDuplicateCheck(@RequestParam(name = "id") String id) {
         log.info("valdateId = {}", id);

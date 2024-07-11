@@ -1,5 +1,6 @@
 package jsg.culturelog.service;
 
+import jsg.culturelog.domain.Member;
 import jsg.culturelog.domain.Review;
 import jsg.culturelog.domain.form.ReviewEditForm;
 import jsg.culturelog.repository.ReviewRepository;
@@ -41,5 +42,12 @@ public class ReviewService {
         review.changeTitle(form.getTitle());
 
         return review;
+    }
+
+    //240711 sungiJung 리뷰 작성자 찾는 메소드 추가
+    public Long getReviewWriter(Long id) {
+        Review review = reviewRepository.findMemberById(id);
+
+        return review.getMember().getId();
     }
 }

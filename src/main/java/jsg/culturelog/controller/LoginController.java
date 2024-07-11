@@ -52,12 +52,13 @@ public class LoginController {
         return "redirect:/";
     }
 
+    //240711 sungiJung 로그아웃 동작 변경
     @PostMapping("/logout")
     @ResponseBody
     public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession();
         if (session.getAttribute("login") != null) {
-            session.removeAttribute("login");
+            session.invalidate();
         }
 
         return "success";

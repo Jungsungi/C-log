@@ -74,8 +74,9 @@
     function idDuplicatedCheck() {
         let id = $("#userName").val();
 
+        //240711 sungiJung url 주소 수정
         $.ajax({
-            url : "/member/member/check",
+            url : "/member/check",
             data : {id},
             type : "post",
             success : function (data) {

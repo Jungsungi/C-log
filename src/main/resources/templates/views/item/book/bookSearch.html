@@ -81,11 +81,11 @@
 
     <div th:if="${bookList != null}">
         <span class="row p-3">
-            <div th:each="book : ${bookList}" class="card col-3 mb-3 mt-3 p-3">
+            <div th:each="book : ${bookList}" class="card col-3 mb-3 mt-3 p-3" style="border: darkcyan 0.5px solid;">
                 <img th:src="@{${book.cover}}" class="card-img-top" alt="..." width="260px;" height="470px;">
                 <div class="card-body">
                     <h5 class="card-title book-content" th:text="${book.getName}">Card title</h5>
-                    <p class="card-text h6" th:text="${book.author}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p class="card-text h6 book-content" th:text="${book.author}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                     <p class="card-text h6" th:text="${book.publisher}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                     <p class="card-text h6" th:text="${book.pubDate}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                     <a th:href="@{/item/book/{isbn} (isbn = ${book.isbn})}" class="btn btn-primary" th:text="|상세 정보|">Go somewhere</a>

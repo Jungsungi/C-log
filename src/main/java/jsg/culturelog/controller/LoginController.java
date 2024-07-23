@@ -49,6 +49,11 @@ public class LoginController {
             return "views/login/login";
         }
 
+        // 240723 sungiJung 로그인 관련 인터셉터 걸렸을 때 이전 요청으로 redirect 하도록 변경
+        if (request.getParameter("redirectURL") != null) {
+            return "redirect:" + request.getParameter("redirectURL");
+        }
+
         return "redirect:/";
     }
 

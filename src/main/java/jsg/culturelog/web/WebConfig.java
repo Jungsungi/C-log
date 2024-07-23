@@ -21,14 +21,15 @@ public class WebConfig implements WebMvcConfigurer {
                 .addPathPatterns("/**")
                 .excludePathPatterns("/", "/login", "/member/add", "/member/check", "/logout",
                         "/review/book" ,"/review/book/*",
-                        "item/book/bestSeller", "/item/book" , "/item/book/*",
+                        "/item/book/bestSeller", "/item/book" , "/item/book/*",
+                        "/item/movie/**",
                         "/css/**", "/*.ico", "/error", "/js/**");
 
         // 리뷰 작성자 권한 체크 인터셉터
         registry.addInterceptor(new ReviewInterceptor(reviewService))
                 .order(2)
                 .addPathPatterns("/review/**")
-                .excludePathPatterns("/review/book", "review/book/*");
+                .excludePathPatterns("/review/book", "/review/book/*", "/review/book/add/*");
 
     }
 }

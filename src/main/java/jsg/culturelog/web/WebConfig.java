@@ -1,6 +1,7 @@
 package jsg.culturelog.web;
 
 import jsg.culturelog.service.ReviewService;
+import jsg.culturelog.web.interceptor.AuthorizationInterceptor;
 import jsg.culturelog.web.interceptor.LoginInterceptor;
 import jsg.culturelog.web.interceptor.ReviewInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +24,20 @@ public class WebConfig implements WebMvcConfigurer {
                         "/review/book" ,"/review/book/*",
                         "/item/book/bestSeller", "/item/book" , "/item/book/*",
                         "/item/movie/**",
-                        "/css/**", "/*.ico", "/error", "/js/**");
+                        "/css/**", "/*.ico", "/error", "/js/**", "/img/**");
 
         // 리뷰 작성자 권한 체크 인터셉터
         registry.addInterceptor(new ReviewInterceptor(reviewService))
                 .order(2)
                 .addPathPatterns("/review/**")
                 .excludePathPatterns("/review/book", "/review/book/*", "/review/book/add/*");
+
+        // 사용자 정보조회 관련 권한 체크 인터셉터
+        registry.addInterceptor(new AuthorizationInterceptor())
+                .order(3)
+                .addPathPatterns("/member/**")
+                .excludePathPatterns("/member/add", "/member/check");
+
 
     }
 }

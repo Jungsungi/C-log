@@ -14,4 +14,13 @@ function nullCheck(value) {
             $("#bookNav").css("display", "none");
         }
     })
+
+     $("#movieMenu").on({
+         "mouseover" : function () {
+             $("#movieNav").css("display", "block");
+         },
+         "mouseout" : function () {
+             $("#movieNav").css("display", "none");
+         }
+     })
  });

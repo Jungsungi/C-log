@@ -8,12 +8,17 @@
         <a th:text="|C-log|" th:href="@{/}" class="navbar-brand header_icon"></a>
         <div class="collapse navbar-collapse nav-container" style="float: right">
             <ul class="navbar-nav me-auto mb-auto">
-                <li class="nav-item">
-                    <a th:text="|책 정보|"  class="nav-link" style="color: white"></a>
+
+                <li class="nav-item dropdown" id="movieMenu">
+                    <a class="nav-link dropdown-toggle" href="#" style="color: white" th:text="|영화 정보|"></a>
+                    <ul class="dropdown-menu" id="movieNav" style="display: none">
+                        <li><a class="dropdown-item" th:href="@{/item/movie/weekBoxoffice}" th:text="|박스 오피스|"></a></li>
+                        <li><a class="dropdown-item" th:href="@{/item/movie}" th:text="|영화 검색|">Another action</a></li>
+                    </ul>
                 </li>
 
                 <li class="nav-item dropdown" id="bookMenu">
-                    <a class="nav-link dropdown-toggle" href="#" th:text="|도서 정보|"></a>
+                    <a class="nav-link dropdown-toggle" href="#" style="color: white" th:text="|도서 정보|"></a>
                     <ul class="dropdown-menu" id="bookNav" style="display: none">
                         <li><a class="dropdown-item" th:href="@{/item/book/bestSeller}" th:text="|베스트 셀러|"></a></li>
                         <li><a class="dropdown-item" th:href="@{/item/book}" th:text="|도서 검색|">Another action</a></li>

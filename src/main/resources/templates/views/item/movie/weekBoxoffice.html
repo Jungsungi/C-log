@@ -15,13 +15,14 @@
 
 <div class="container" style="width: 80%;">
     <div>
-        <p class="h1" th:text="|베스트 셀러|"></p>
+        <p class="h1" th:text="|박스 오피스|"></p>
     </div>
 
     <div>
         <span class="row p-3">
             <div th:each="movie : ${movies}" class="card col-3 mb-3 mt-3 p-3">
-                <img th:src="@{/}" class="card-img-top" alt="..." width="260px;" height="420px;">
+                <img th:if="${movie.img != null}" th:src="@{${movie.img}}" class="card-img-top" alt="..." width="260px;" height="420px;">
+                <img th:if="${movie.img == null}" th:src="@{/img/NoImg.png}" class="card-img-top" alt="..." width="260px;" height="420px;">
                 <div class="card-body">
                     <h5 class="card-title book-content" th:text="${movie.moviename}">Card title</h5>
                     <p class="card-text h6" th:text="${movie.openDate}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>

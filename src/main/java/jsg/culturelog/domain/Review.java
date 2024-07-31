@@ -1,6 +1,7 @@
 package jsg.culturelog.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import jsg.culturelog.domain.item.Item;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,6 +15,7 @@ public class Review {
     private Long id;
 
     private String title;
+    @Size(max = 2000)
     private String content;
     private Double grade;
 

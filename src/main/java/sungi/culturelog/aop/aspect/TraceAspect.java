@@ -2,16 +2,13 @@ package sungi.culturelog.aop.aspect;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import java.time.LocalDateTime;
 
 @Slf4j
 @Aspect
@@ -22,7 +19,7 @@ public class TraceAspect {
     public Object beFore(ProceedingJoinPoint joinPoint) {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
 
-        log.info("[Start] {}, request url : {}, {}", joinPoint.getSignature(), request.getRequestURI(), request.getMethod());
+        log.info("[Start] {}, url : {}, method : {}", joinPoint.getSignature(), request.getRequestURI(), request.getMethod());
         long startTime = System.currentTimeMillis();
         try {
             Object result = joinPoint.proceed();

@@ -113,6 +113,7 @@ public class BookService {
      * @param isbn
      * @return BookDto
      */
+    @Trace
     @Transactional
     public BookDto getBookInfo(String isbn) {
         HttpURLConnection connection = null;
@@ -187,6 +188,7 @@ public class BookService {
      * isbn으로 api 조회한 값 DB 적재
      * @param bookDto
      */
+    @Trace
     @Transactional
     protected void saveBook(BookDto bookDto) {
         Book book = new Book(bookDto.getName(), bookDto.getImg(), bookDto.getDescription(), bookDto.getAuthor(), bookDto.getPubDate(), bookDto.getIsbn(), bookDto.getPublisher(), bookDto.getBookLink());
@@ -199,6 +201,7 @@ public class BookService {
      * @param isbn
      * @return
      */
+    @Trace
     @Transactional
     public BookDto getBook(String isbn) {
         Optional<Book> findBook = bookRepository.findByIsbn(isbn);

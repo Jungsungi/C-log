@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sungi.culturelog.aop.annotation.Trace;
 import sungi.culturelog.domain.dto.MovieDto;
 import sungi.culturelog.domain.item.Movie;
 import sungi.culturelog.repository.MovieRepository;
@@ -30,6 +31,7 @@ public class MovieService {
     private final MovieRepository movieRepository;
 
     @Transactional
+    @Trace
     public List<MovieDto> weekBoxoffice() {
         HttpURLConnection connection = null;
         List<MovieDto> list = new ArrayList<>();
@@ -113,6 +115,7 @@ public class MovieService {
 
     //영화 엔티티 DB 적재
     @Transactional
+    @Trace
     protected void movieSave(MovieDto movieDto) {
 //        Movie movie = new Movie(movieDto.getMoviename(), movieDto.getDirector(), movieDto.getOpenDate(), movieDto.getDetail(), null, movieDto.getMovieCode(), 0D, movieDto.getImg());
         Movie movie = new Movie(movieDto.getMoviename(), movieDto.getImg(), movieDto.getDetail(), movieDto.getDirector(), movieDto.getOpenDate(), movieDto.getMovieCode());
@@ -120,6 +123,7 @@ public class MovieService {
     }
 
     // 영화진흥위원회 api에서 제목, 개봉일을 가지고 DMDb 에서 상세 정보 조회
+    @Trace
     private Map<String, String> movieDetailInfo(String movieNm, String openDt) {
         HttpURLConnection connection = null;
         Map<String, String> map = new HashMap<>();
@@ -202,6 +206,7 @@ public class MovieService {
     }
 
     @Transactional
+    @Trace
     public List<MovieDto> searchMovie(String queryType, String query, String page) {
         HttpURLConnection connection = null;
         List<MovieDto> list = new ArrayList<>();

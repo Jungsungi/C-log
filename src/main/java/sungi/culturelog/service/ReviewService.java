@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sungi.culturelog.aop.annotation.Trace;
 import sungi.culturelog.domain.Member;
 import sungi.culturelog.domain.Review;
 import sungi.culturelog.domain.dto.ReviewDto;
@@ -13,7 +14,9 @@ import sungi.culturelog.domain.item.Item;
 import sungi.culturelog.repository.ItemRepository;
 import sungi.culturelog.repository.ReviewRepository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -25,6 +28,7 @@ public class ReviewService {
     private final ItemRepository itemRepository;
 
     @Transactional
+    @Trace
     public void saveReview(ReviewAddFrom form, HttpSession session) {
         Member login = (Member) session.getAttribute("login");
         Item item = itemRepository.findById(form.getItemId()).get();
@@ -33,9 +37,12 @@ public class ReviewService {
         reviewRepository.save(review);
     }
 
+    @Transactional
+    @Trace
     public ReviewDto reviewInfo(Long reviewId) {
         Optional<Review> findReview = reviewRepository.findById(reviewId);
         if (findReview.isPresent()) {
+            findReview.get().hitUp();
             ReviewDto review = new ReviewDto(findReview.get());
             return review;
         } else {
@@ -47,6 +54,7 @@ public class ReviewService {
         return null;
     }
 
+    @Trace
     @Transactional
     public void editReview(Long reviewId, ReviewEditFrom form) {
         Optional<Review> findReview = reviewRepository.findById(reviewId);
@@ -60,4 +68,22 @@ public class ReviewService {
         }
     }
 
+    @Trace
+    public Map<String, List<ReviewDto>> mainReviews() {
+        List<Review> findBookReviews = reviewRepository.findMainBookReview();
+        List<Review> findMovieReviews = reviewRepository.findMainMovieReview();
+
+        List<ReviewDto> bookReview = findBookReviews.stream().map(review -> new ReviewDto(review)).toList();
+        List<ReviewDto> movieReview = findMovieReviews.stream().map(review -> new ReviewDto(review)).toList();
+
+        Map<String, List<ReviewDto>> reviews = new HashMap<>();
+        reviews.put("bookReview", bookReview);
+        reviews.put("movieReview", movieReview);
+
+        return reviews;
+    }
+
+    public Long getReviewWriter(Long id) {
+        return null;
+    }
 }

@@ -18,6 +18,9 @@ public class Review {
     private String content;
     private Double grade;
 
+    // 240904 조회수 추가
+    private int hit;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn
     private Member member;
@@ -51,5 +54,9 @@ public class Review {
 
     public void changeContent(String content) {
         this.content = content;
+    }
+
+    public void hitUp() {
+        this.hit += 1;
     }
 }

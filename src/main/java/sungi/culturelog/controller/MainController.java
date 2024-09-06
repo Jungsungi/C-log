@@ -23,12 +23,12 @@ public class MainController {
         return reviewService.mainReviews();
     }
 
-    @PostMapping("/login")
+    @PostMapping("/api/login")
     public boolean login(@RequestBody LoginForm form, HttpServletRequest request) {
         return loginService.login(form.getUsername(), form.getPwd(), request);
     }
 
-    @PostMapping("/logout")
+    @PostMapping("/api/logout")
     public void logout(HttpSession session) {
         session.invalidate();
     }

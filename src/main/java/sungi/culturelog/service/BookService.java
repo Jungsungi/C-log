@@ -10,6 +10,7 @@ import sungi.culturelog.domain.Review;
 import sungi.culturelog.domain.dto.BookDto;
 import sungi.culturelog.domain.item.Book;
 import sungi.culturelog.repository.BookRepository;
+import sungi.culturelog.web.condition.BookSearchCondition;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -225,5 +226,81 @@ public class BookService {
         } else {
             return getBookInfo(isbn);
         }
+    }
+
+    /**
+     * 도서 검색 메소드
+     * @param cond
+     * @return
+     */
+    public List<BookDto> searchBook(BookSearchCondition cond) {
+        HttpURLConnection connection = null;
+        List<BookDto> bookList = new ArrayList<>();
+        try {
+            StringBuilder sb = new StringBuilder("http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?");
+            sb.append("ttbkey=ttbsungi12051129001");
+            sb.append("&QueryType=" + cond.getQueryType());
+            sb.append("&Query=" + cond.getQuery());
+            sb.append("&Start=" + cond.getPage());
+            sb.append("&MaxResults=12");
+            sb.append("&Cover=Big");
+            sb.append("&output=JS");
+            sb.append("&Version=20131101");
+
+            URL url = new URL(sb.toString());
+
+            log.info("Aladin Open API Connect");
+
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setDoOutput(true);
+            connection.setRequestProperty("Content-Type", "application/json");
+
+            DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+            wr.close();
+
+            InputStream is = connection.getInputStream();
+            BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+
+            sb = new StringBuilder();
+
+            String line;
+            while ((line = rd.readLine()) != null) {
+                sb.append(line);
+                sb.append('\r');
+            }
+
+            System.out.println(sb.toString());
+
+            ObjectMapper mapper = new ObjectMapper();
+
+            HashMap hashMap = mapper.readValue(sb.toString(), HashMap.class);
+            ArrayList item = (ArrayList) hashMap.get("item");
+
+
+            for (Object book : item) {
+                HashMap<String, Object> map = (HashMap<String, Object>) book;
+                BookDto bookDto = new BookDto();
+                bookDto.setName((String) map.get("title"));
+                bookDto.setAuthor((String) map.get("author"));
+                bookDto.setDescription((String) map.get("description"));
+                bookDto.setIsbn((String) map.get("isbn13"));
+                bookDto.setPubDate((String) map.get("pubDate"));
+                bookDto.setImg((String) map.get("cover"));
+                bookDto.setPublisher((String) map.get("publisher"));
+                bookDto.setCount((Integer) hashMap.get("totalResults"));
+                bookList.add(bookDto);
+            }
+
+            rd.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+                log.info("Aladin Open API Disconnect");
+            }
+        }
+        return bookList;
     }
 }

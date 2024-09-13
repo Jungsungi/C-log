@@ -8,6 +8,7 @@ import sungi.culturelog.domain.item.Book;
 @Setter
 public class BookDto {
 
+    private Long id;
     private String name;
     private String img;
     private String description;
@@ -24,6 +25,7 @@ public class BookDto {
     }
 
     public BookDto(Book book) {
+        id = book.getId();
         name = book.getName();
         img = book.getImg();
         description = book.getDescription();

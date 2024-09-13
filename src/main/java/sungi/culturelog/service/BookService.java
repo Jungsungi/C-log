@@ -169,6 +169,7 @@ public class BookService {
                 bookDto.setImg((String) map.get("cover"));
                 bookDto.setPublisher((String) map.get("publisher"));
                 bookDto.setBookLink((String) map.get("link"));
+                bookDto.setGrade(0D);
             }
 
             saveBook(bookDto);
@@ -213,12 +214,15 @@ public class BookService {
             int sum = 0;
 
             List<Review> reviews = findBook.get().getReviews();
-            for (Review review : reviews) {
-                sum += review.getGrade();
+            count = reviews.size();
+
+            if (count > 0) {
+                for (Review review : reviews) {
+                    sum += review.getGrade();
+                }
+                grade = (double) sum /count;
             }
 
-            count = reviews.size();
-            grade = (double) sum /count;
 
             bookDto.setCount(count);
             bookDto.setGrade(grade);
@@ -269,8 +273,6 @@ public class BookService {
                 sb.append(line);
                 sb.append('\r');
             }
-
-            System.out.println(sb.toString());
 
             ObjectMapper mapper = new ObjectMapper();
 

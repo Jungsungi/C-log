@@ -1,6 +1,29 @@
+.cardBox {
+    width: 18%;
+    height: 413px;
+    padding: 5px;
+    float: left;
+    margin-left: 5.5%;
+    margin-bottom: 3%;
+}
+
 .card {
     border-radius: 10px;
     border: 1px solid black;
-    width: 40%;
-    padding: 5px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    margin: 10px;
+    width: 90%;
+    height: 100%;
+    padding: 10px;
+}
+
+.link {
+    text-decoration-line: none;
+    color: black;
+}
+
+.card img {
+    padding: 10px;
 }

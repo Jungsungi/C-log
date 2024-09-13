@@ -1,0 +1,7 @@
+.content-body {
+    background-color: #eef0f0;
+    padding: 20px;
+    margin: 50px;
+    height: 100%;
+    overflow: scroll;
+}

@@ -5,3 +5,7 @@
     height: 100%;
     overflow: scroll;
 }
+
+.space {
+    height: 30px;
+}

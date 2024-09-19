@@ -3,9 +3,66 @@
 }
 
 .grade-box button {
-    margin: 10px;
+    margin: 0 10px 0 10px;
+    width: 40px;
+    height: 40px;
+    border: #61dafb solid 1px;
+    font-size: 20px;
+}
+
+.grade-box {
+    line-height: 30px;
+}
+
+.grade-btn {
+    margin-left: 10px;
 }
 
 .active {
     background-color: #61dafb;
+}
+
+.review-img {
+    margin : 30px 30px 30px 25%;
+    width: 100%;
+}
+
+.review-img img{
+    width: 45%;
+    height: 60%;
+}
+
+.item-info {
+    float: left;
+    width: 40%;
+    text-align: left;
+}
+
+.info-box {
+    border-top: black 1px solid;
+    width: 80%;
+}
+
+.review-info {
+    width: 58%;
+    float: right;
+    margin-left: 20px;
+}
+
+.review-info textarea {
+    width: 100%;
+    resize: none;
+    height: 800px;
+    font-size: 16px;
+}
+
+.review-tag {
+    display: inline-block;
+    width: 17%;
+}
+
+.review-name {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }

@@ -28,4 +28,5 @@
     width: 90px;
     background-color: dodgerblue;
     border-radius: 10px;
+    cursor : pointer;
 }
